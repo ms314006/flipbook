@@ -1,5 +1,9 @@
 $background: #FAF3DD;
 $border: #FFA69E;
+$hoverColorBorder: #5E6472;
+$pageGridBorder: #5E6472;
+$hoverPageGridBorder: #c2cbe1;
+$pageShadow: #5E6472;
 $font: #5E6472;
 
 .layout {
@@ -14,7 +18,7 @@ $font: #5E6472;
     align-items: center;
 
     .main {
-        width: 850px;
+        width: 736px;
         height: 600px;
         border: 2px solid $border;
         border-radius: 2px;
@@ -81,23 +85,52 @@ $font: #5E6472;
                     border-width: 0px;
                 }
                 &:hover {
-                    border: 2px dashed #5E6472;
+                    border: 2px dashed $hoverColorBorder;
                 }
             }
             .focusColorWapper {
-                border: 2px dashed #5E6472;
+                border: 2px dashed $hoverColorBorder;
             }
         }
         .workspace {
-            background: #ffa;
             grid-area: workspace;
+            display: flex;
+            justify-content: center;
+            padding: 0px 20px;
+
+            .page {
+                display: flex;
+                width: 384px;
+                height: 384px;
+                box-shadow: 0px 0px 6px 1px $pageShadow;
+
+                .pageRow {
+                    .pageGrid {
+                        width: 22px;
+                        height: 22px;
+                        border: 1px solid $pageGridBorder;
+    
+                        &:hover {
+                            border: 0px;
+                        }
+                    }
+    
+                    .pageGridBorder {
+                        width: 24px;
+                        height: 24px;
+                        box-sizing: border-box;
+    
+                        &:hover {
+                            border: 1px solid $hoverPageGridBorder;
+                        }
+                    }
+                }
+            }
         }
         .showFlipbook {
-            background: #faa;
             grid-area: showFlipbook;
         }
         .pages {
-            background: #aaf;
             grid-area: pages;
         }
     }

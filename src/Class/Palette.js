@@ -1,7 +1,7 @@
 class Colors {
   constructor() {
     this.colors = [
-      '#ffffff00', '#ffffff',
+      'transparent', '#ffffff',
       '#E7C09D', '#c5a487',
       '#8B5C33', '#5E2C00',
       '#FD7FFF', '#EF0033',
