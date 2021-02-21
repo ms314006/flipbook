@@ -1,6 +1,6 @@
-$background: #14213D;
-$border: #E5E5E5;
-$font: #E5E5E5;
+$background: #FAF3DD;
+$border: #FFA69E;
+$font: #5E6472;
 
 .layout {
     color: $font;
@@ -15,21 +15,78 @@ $font: #E5E5E5;
 
     .main {
         width: 850px;
-        height: 550px;
+        height: 600px;
         border: 2px solid $border;
         border-radius: 2px;
         box-sizing: border-box;
         padding: 20px;
         display: grid;
-        grid-template-rows: 1fr 110px;
-        grid-template-columns: 160px 1fr 160px;
+        grid-template-rows: 60px 1fr 100px;
+        grid-template-columns: 80px 1fr 160px;
         grid-template-areas:
+          "actionBtns actionBtns actionBtns"
           "colors  workspace showFlipbook"
           "pages pages pages";
 
+        .actionBtns {
+            grid-area: actionBtns;
+            display: flex;
+            justify-content: center;
+
+            .actionBtn {
+                cursor: pointer;
+                background: transparent;
+                width: 100px;
+                height: 40px;
+                border: 2px solid $border;
+                border-radius: 4px;
+                color: $font;
+                font-size: 18px;
+                transition: background 0.5s;
+                margin: 0px 8px;
+
+                &:hover {
+                    background: #ffffffdd;
+                }
+            }
+        }
+
         .colors {
-            background: #afa;
             grid-area: colors;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+
+            .colorWapper {
+                width: 28px;
+                height: 28px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                box-sizing: border-box;
+                margin: 4px;
+
+                .colorButton {
+                    border: 1px solid $border;
+                    color: transparent;
+                    cursor: pointer;
+                    width: 24px;
+                    height: 24px;
+
+                    &:hover {
+                        border-width: 0px;
+                    }
+                }
+                .focusColorButton {
+                    border-width: 0px;
+                }
+                &:hover {
+                    border: 2px dashed #5E6472;
+                }
+            }
+            .focusColorWapper {
+                border: 2px dashed #5E6472;
+            }
         }
         .workspace {
             background: #ffa;
