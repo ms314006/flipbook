@@ -8,13 +8,27 @@ const flipbook = new Flipbook();
 
 const Main = () => {
   const [currentColor, setCurrentColor] = useState(palette.colors[0]);
-  const rerender = useState({})[1];
+  const [workPage, setWorkPage] = useState(flipbook.getPage());
+  const [showPage, setShowPage] = useState(flipbook.getPage());
+
+  useEffect(() => {
+    const pageCount = flipbook.getPageCount();
+    let currentPageNumber = 0;
+    setInterval(() => {
+      setShowPage(flipbook.getPage(currentPageNumber));
+      if (currentPageNumber === pageCount - 1) {
+        currentPageNumber = 0;
+      } else {
+        currentPageNumber += 1;
+      }
+    }, 100);
+  }, []);
 
   const setPageColor = (e) => {
     if (typeof e.target.dataset.position === 'undefined') return;
     const [x, y] = e.target.dataset.position.split('_');
     flipbook.getPage().setPositionColor(Number(x), Number(y), currentColor);
-    rerender({});
+    setWorkPage(flipbook.getPage());
   };
 
   return (
@@ -85,13 +99,13 @@ const Main = () => {
             onKeyDown={e => setPageColor(e)}
           >
             {
-              Array.from(Array(flipbook.getPage().pageRowLength)).map((column, xIndex) => {
+              Array.from(Array(workPage.pageRowLength)).map((column, xIndex) => {
                 const rowKey = xIndex;
                 return (
                   <div key={rowKey} className={styles.pageRow}>
                     {
-                      Array.from(Array(flipbook.getPage().pageColumnLength)).map((row, yIndex) => {
-                        const color = flipbook.getPage().getPositionColor(xIndex, yIndex);
+                      Array.from(Array(workPage.pageColumnLength)).map((row, yIndex) => {
+                        const color = workPage.getPositionColor(xIndex, yIndex);
                         const gridKey = `${xIndex}_${yIndex}`;
                         return (
                           <div key={gridKey} className={styles.pageGridBorder}>
@@ -110,7 +124,32 @@ const Main = () => {
             }
           </div>
         </div>
-        <div className={styles.showFlipbook}>Show Flipbook</div>
+        <div className={styles.showFlipbook}>
+          <div className={styles.page}>
+            {
+              Array.from(Array(showPage.pageRowLength)).map((column, xIndex) => {
+                const rowKey = xIndex;
+                return (
+                  <div key={rowKey} className={styles.pageRow}>
+                    {
+                      Array.from(Array(showPage.pageColumnLength)).map((row, yIndex) => {
+                        const color = showPage.getPositionColor(xIndex, yIndex);
+                        const gridKey = `${xIndex}_${yIndex}`;
+                        return (
+                          <div
+                            key={gridKey}
+                            className={styles.pageGrid}
+                            style={{ background: color }}
+                          />
+                        );
+                      })
+                    }
+                  </div>
+                );
+              })
+            }
+          </div>
+        </div>
         <div className={styles.pages}>Pages</div>
       </div>
     </div>

@@ -10,6 +10,10 @@ class Flipbook {
   getPage(pageNumber) {
     return this.pages[pageNumber || this.currentPage];
   }
+
+  getPageCount() {
+    return this.pages.length;
+  }
 }
 
 export default Flipbook;

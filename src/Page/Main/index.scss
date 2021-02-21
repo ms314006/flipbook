@@ -4,6 +4,8 @@ $hoverColorBorder: #5E6472;
 $pageGridBorder: #5E6472;
 $hoverPageGridBorder: #c2cbe1;
 $pageShadow: #5E6472;
+$showFlipbookBorder: #aed9e0;
+$showFlipbookBackGround: #b8f2e6;
 $font: #5E6472;
 
 .layout {
@@ -21,7 +23,7 @@ $font: #5E6472;
         width: 736px;
         height: 600px;
         border: 2px solid $border;
-        border-radius: 2px;
+        border-radius: 4px;
         box-sizing: border-box;
         padding: 20px;
         display: grid;
@@ -129,6 +131,21 @@ $font: #5E6472;
         }
         .showFlipbook {
             grid-area: showFlipbook;
+            
+            .page {
+                display: flex;
+                background: $showFlipbookBackGround;;
+                border: 6px double $showFlipbookBorder;
+                border-radius: 4px;
+                width: 128px;
+                height: 128px;
+                .pageRow {
+                    .pageGrid {
+                        width: 8px;
+                        height: 8px;
+                    }
+                }
+            }
         }
         .pages {
             grid-area: pages;
