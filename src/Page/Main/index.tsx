@@ -10,11 +10,12 @@ const Main = () => {
   const [currentColor, setCurrentColor] = useState(palette.colors[0]);
   const [workPage, setWorkPage] = useState(flipbook.getPage());
   const [showPage, setShowPage] = useState(flipbook.getPage());
+  const [pages, setPages] = useState(flipbook.pages);
 
   useEffect(() => {
-    const pageCount = flipbook.getPageCount();
     let currentPageNumber = 0;
-    setInterval(() => {
+    const showPageInterval = setInterval(() => {
+      const pageCount = flipbook.getPageCount();
       setShowPage(flipbook.getPage(currentPageNumber));
       if (currentPageNumber === pageCount - 1) {
         currentPageNumber = 0;
@@ -22,13 +23,37 @@ const Main = () => {
         currentPageNumber += 1;
       }
     }, 100);
-  }, []);
+
+    return () => {
+      clearInterval(showPageInterval);
+    };
+  }, [pages]);
 
   const setPageColor = (e) => {
     if (typeof e.target.dataset.position === 'undefined') return;
     const [x, y] = e.target.dataset.position.split('_');
-    flipbook.getPage().setPositionColor(Number(x), Number(y), currentColor);
-    setWorkPage(flipbook.getPage());
+    flipbook.getPage(workPage.pageNumber).setPositionColor(Number(x), Number(y), currentColor);
+    setWorkPage(flipbook.getPage(workPage.pageNumber));
+    setPages(flipbook.pages);
+  };
+
+  const addNewPage = () => {
+    flipbook.addNewPage(workPage.pageNumber);
+    setPages(flipbook.pages);
+  };
+
+  const deleteWorkPage = () => {
+    const deletePageNumber = workPage.pageNumber;
+    const nextWorkPageNumber = workPage.pageNumber === 0 ? 0 : workPage.pageNumber - 1;
+    flipbook.deletePage(deletePageNumber);
+    setWorkPage(flipbook.getPage(nextWorkPageNumber));
+    setPages(flipbook.pages);
+  };
+
+  const pastePage = () => {
+    flipbook.pastePage(workPage.pageNumber);
+    setWorkPage(flipbook.getPage(workPage.pageNumber));
+    setPages(flipbook.pages);
   };
 
   return (
@@ -38,35 +63,28 @@ const Main = () => {
           <button
             type="button"
             className={styles.actionBtn}
-            onClick={() => { console.log('new'); }}
-          >
-            new
-          </button>
-          <button
-            type="button"
-            className={styles.actionBtn}
-            onClick={() => { console.log('new'); }}
+            onClick={addNewPage}
           >
             add
           </button>
           <button
             type="button"
             className={styles.actionBtn}
-            onClick={() => { console.log('new'); }}
+            onClick={deleteWorkPage}
           >
             delete
           </button>
           <button
             type="button"
             className={styles.actionBtn}
-            onClick={() => { console.log('new'); }}
+            onClick={() => { flipbook.copyPage(workPage.pageNumber); }}
           >
             copy
           </button>
           <button
             type="button"
             className={styles.actionBtn}
-            onClick={() => { console.log('new'); }}
+            onClick={pastePage}
           >
             paste
           </button>
@@ -150,7 +168,45 @@ const Main = () => {
             }
           </div>
         </div>
-        <div className={styles.pages}>Pages</div>
+        <div className={styles.pages}>
+          {
+            pages.map(page => (
+              <div
+                role="button"
+                tabIndex={0}
+                key={page.pageNumber}
+                className={
+                  `${styles.page} ${page.pageNumber === workPage.pageNumber ? styles.focusPage : ''}`
+                }
+                onClick={() => setWorkPage(page)}
+                onKeyDown={() => setWorkPage(page)}
+              >
+                {
+                  Array.from(Array(page.pageRowLength)).map((column, xIndex) => {
+                    const rowKey = xIndex;
+                    return (
+                      <div key={rowKey} className={styles.pageRow}>
+                        {
+                          Array.from(Array(page.pageColumnLength)).map((row, yIndex) => {
+                            const color = page.getPositionColor(xIndex, yIndex);
+                            const gridKey = `${xIndex}_${yIndex}`;
+                            return (
+                              <div
+                                key={gridKey}
+                                className={styles.pageGrid}
+                                style={{ background: color }}
+                              />
+                            );
+                          })
+                        }
+                      </div>
+                    );
+                  })
+                }
+              </div>
+            ))
+          }
+        </div>
       </div>
     </div>
   );

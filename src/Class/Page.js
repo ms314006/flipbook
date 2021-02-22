@@ -1,8 +1,15 @@
 class Page {
-  constructor(page) {
-    this.page = page;
+  constructor({ page, pageNumber }) {
     this.pageRowLength = 16;
     this.pageColumnLength = 16;
+    this.pageNumber = pageNumber;
+    this.page = page || (Array.from(Array(this.pageColumnLength * this.pageRowLength)).map(
+      (item, positionIndex) => ({
+        x: positionIndex % this.pageColumnLength,
+        y: Math.floor(positionIndex / this.pageRowLength),
+        color: 'transparent',
+      }),
+    ));
   }
 
   getPositionColor(x, y) {

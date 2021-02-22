@@ -20,15 +20,15 @@ $font: #5E6472;
     align-items: center;
 
     .main {
-        width: 736px;
+        width: 700px;
         height: 600px;
-        border: 2px solid $border;
+        border: 10px solid $border;
         border-radius: 4px;
         box-sizing: border-box;
         padding: 20px;
         display: grid;
         grid-template-rows: 60px 1fr 100px;
-        grid-template-columns: 80px 1fr 160px;
+        grid-template-columns: 64px 1fr 140px;
         grid-template-areas:
           "actionBtns actionBtns actionBtns"
           "colors  workspace showFlipbook"
@@ -60,7 +60,6 @@ $font: #5E6472;
         .colors {
             grid-area: colors;
             display: flex;
-            justify-content: center;
             flex-wrap: wrap;
 
             .colorWapper {
@@ -70,7 +69,7 @@ $font: #5E6472;
                 justify-content: center;
                 align-items: center;
                 box-sizing: border-box;
-                margin: 4px;
+                margin: 0px 4px 4px 0px;
 
                 .colorButton {
                     border: 1px solid $border;
@@ -149,6 +148,30 @@ $font: #5E6472;
         }
         .pages {
             grid-area: pages;
+            display: flex;
+            overflow: scroll;
+            align-items: center;
+
+            .page {
+                display: flex;
+                background: $showFlipbookBackGround;;
+                border: 6px double $showFlipbookBorder;
+                border-radius: 4px;
+                width: 64px;
+                height: 64px;
+                margin: 0px 8px;
+
+                .pageRow {
+                    .pageGrid {
+                        width: 4px;
+                        height: 4px;
+                    }
+                }
+            }
+
+            .focusPage {
+                box-shadow: 0px 0px 8px 4px $pageShadow;
+            }
         }
     }
 }
