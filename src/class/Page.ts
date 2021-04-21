@@ -12,7 +12,7 @@ class Page {
     ));
   }
 
-  getPositionColor(x, y) {
+  getPositionColor(x: number, y: number) {
     return this.page.find(grid => grid.x === x && grid.y === y).color;
   }
 

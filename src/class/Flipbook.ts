@@ -1,5 +1,5 @@
 import defaultFlipbook from '../json/defaultFlipbook.json';
-import Page from './Page';
+import Page from './Page.ts';
 
 class Flipbook {
   constructor(pages) {

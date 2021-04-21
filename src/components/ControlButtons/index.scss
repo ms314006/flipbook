@@ -1,0 +1,24 @@
+@import '../../scss/variables';
+
+.actionBtns {
+    grid-area: actionBtns;
+    display: flex;
+    justify-content: center;
+
+    .actionBtn {
+        cursor: pointer;
+        background: transparent;
+        width: 100px;
+        height: 40px;
+        border: 2px solid $border;
+        border-radius: 4px;
+        color: $font;
+        font-size: 18px;
+        transition: background 0.5s;
+        margin: 0px 8px;
+
+        &:hover {
+            background: #ffffffdd;
+        }
+    }
+}

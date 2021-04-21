@@ -1,0 +1,38 @@
+@import '../../scss/variables';
+
+.colors {
+    grid-area: colors;
+    display: flex;
+    flex-wrap: wrap;
+
+    .colorWapper {
+        width: 28px;
+        height: 28px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+        margin: 0px 4px 4px 0px;
+
+        .colorButton {
+            border: 1px solid $border;
+            color: transparent;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+
+            &:hover {
+                border-width: 0px;
+            }
+        }
+        .focusColorButton {
+            border-width: 0px;
+        }
+        &:hover {
+            border: 2px dashed $hoverColorBorder;
+        }
+    }
+    .focusColorWapper {
+        border: 2px dashed $hoverColorBorder;
+    }
+}
