@@ -9,7 +9,7 @@ type ColorPickerProps = {
 
 const palette = new Palette();
 
-export default (props: ColorPickerProps) => {
+export default React.memo((props: ColorPickerProps) => {
   const { currentColor, setCurrentColor } = props;
   useEffect(() => {
     setCurrentColor(palette.colors[0]);
@@ -39,4 +39,4 @@ export default (props: ColorPickerProps) => {
       }
     </div>
   );
-};
+});

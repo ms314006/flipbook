@@ -5,32 +5,32 @@ import styles from './index.scss';
 
 type ControlButtonsProps = {
     flipbook: Flipbook;
-    workPage: Flipbook;
-    setWorkPage: (page: Page) => void;
+    workingPage: Flipbook;
+    setWorkingPage: (page: Page) => void;
     setPages: (pages: Page[]) => void
 }
 
-export default (props: ControlButtonsProps) => {
+export default React.memo((props: ControlButtonsProps) => {
   const {
-    flipbook, workPage, setWorkPage, setPages,
+    flipbook, workingPage, setWorkingPage, setPages,
   } = props;
 
   const addNewPage = () => {
-    flipbook.addNewPage(workPage.pageNumber);
+    flipbook.addNewPage(workingPage.pageNumber);
     setPages(flipbook.pages);
   };
 
   const deleteWorkPage = () => {
-    const deletePageNumber = workPage.pageNumber;
-    const nextWorkPageNumber = workPage.pageNumber === 0 ? 0 : workPage.pageNumber - 1;
+    const deletePageNumber = workingPage.pageNumber;
+    const nextWorkPageNumber = workingPage.pageNumber === 0 ? 0 : workingPage.pageNumber - 1;
     flipbook.deletePage(deletePageNumber);
-    setWorkPage(flipbook.getPage(nextWorkPageNumber));
+    setWorkingPage(flipbook.getPage(nextWorkPageNumber));
     setPages(flipbook.pages);
   };
 
   const pastePage = () => {
-    flipbook.pastePage(workPage.pageNumber);
-    setWorkPage(flipbook.getPage(workPage.pageNumber));
+    flipbook.pastePage(workingPage.pageNumber);
+    setWorkingPage(flipbook.getPage(workingPage.pageNumber));
     setPages(flipbook.pages);
   };
   return (
@@ -52,7 +52,7 @@ export default (props: ControlButtonsProps) => {
       <button
         type="button"
         className={styles.actionBtn}
-        onClick={() => { flipbook.copyPage(workPage.pageNumber); }}
+        onClick={() => { flipbook.copyPage(workingPage.pageNumber); }}
       >
         copy
       </button>
@@ -65,4 +65,6 @@ export default (props: ControlButtonsProps) => {
       </button>
     </div>
   );
-};
+}, (prevProps, nextProps) => (
+  prevProps.workingPage.pageNumber === nextProps.workingPage.pageNumber
+));

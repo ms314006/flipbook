@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import ControlButtons from '../../components/ControlButtons';
 import ColorPicker from '../../components/ColorPicker';
 import WorkingPage from '../../components/WorkingPage';
@@ -30,15 +30,18 @@ const Main = () => {
     return () => {
       clearInterval(showPageInterval);
     };
-  }, [pages]);
+  }, []);
 
-  const setPageColor = (position: string) => {
+  useEffect(() => {
+    setPages(flipbook.pages.map(page => new Page(page)));
+  }, [workingPage]);
+
+  const setPageColor = useCallback((position: string) => {
     if (typeof position === 'undefined') return;
     const [x, y] = position.split('_');
     flipbook.getPage(workingPage.pageNumber).setPositionColor(Number(x), Number(y), currentColor);
     setWorkingPage(new Page(flipbook.getPage(workingPage.pageNumber)));
-    setPages(flipbook.pages);
-  };
+  }, [workingPage, currentColor]);
 
   return (
     <div className={styles.layout}>
@@ -46,15 +49,15 @@ const Main = () => {
         <ControlButtons
           flipbook={flipbook}
           setPages={setPages}
-          workPage={workingPage}
-          setWorkPage={setWorkingPage}
+          workingPage={workingPage}
+          setWorkingPage={setWorkingPage}
         />
         <ColorPicker
           currentColor={currentColor}
           setCurrentColor={setCurrentColor}
         />
         <WorkingPage
-          workPage={workingPage}
+          workingPage={workingPage}
           setPageColor={setPageColor}
         />
         <div className={styles.showFlipbook}>

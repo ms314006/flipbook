@@ -6,7 +6,7 @@ type PageProps = {
   gridSize?: number;
 }
 
-export default (props: PageProps) => {
+export default React.memo((props: PageProps) => {
   const { showPage, gridSize = 8 } = props;
   return (
     <>
@@ -33,4 +33,6 @@ export default (props: PageProps) => {
       }
     </>
   );
-};
+}, (prevProps, nextProps) => (
+  JSON.stringify(prevProps.showPage) === JSON.stringify(nextProps.showPage)
+));
