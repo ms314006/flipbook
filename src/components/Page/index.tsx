@@ -1,8 +1,8 @@
 import React from 'react';
-import Page from '../../class/Page.ts';
+import { PageInterface } from '../../class/Page.ts';
 
 type PageProps = {
-  showPage: Page;
+  showPage: PageInterface;
   gridSize?: number;
 }
 

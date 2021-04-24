@@ -1,9 +1,9 @@
 import React from 'react';
-import Flipbook from '../../class/Flipbook.ts';
+import { FlipbookInterface } from '../../class/Flipbook.ts';
 import styles from './index.scss';
 
 type WorkingPageProps = {
-  workingPage: Flipbook;
+  workingPage: FlipbookInterface;
   setPageColor: (color: string) => void;
 }
 

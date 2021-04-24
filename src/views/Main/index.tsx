@@ -3,11 +3,11 @@ import ControlButtons from '../../components/ControlButtons';
 import ColorPicker from '../../components/ColorPicker';
 import WorkingPage from '../../components/WorkingPage';
 import PageComponent from '../../components/Page';
-import Flipbook from '../../class/Flipbook.ts';
-import Page from '../../class/Page.ts';
+import Flipbook, { FlipbookInterface } from '../../class/Flipbook.ts';
+import Page, { PageInterface } from '../../class/Page.ts';
 import styles from './index.scss';
 
-const flipbook = new Flipbook();
+const flipbook: FlipbookInterface = new Flipbook();
 
 const Main = () => {
   const [currentColor, setCurrentColor] = useState();
@@ -33,7 +33,9 @@ const Main = () => {
   }, []);
 
   useEffect(() => {
-    setPages(flipbook.pages.map(page => new Page(page)));
+    setPages(flipbook.pages.map(
+      (page: PageInterface) => new Page(page),
+    ));
   }, [workingPage]);
 
   const setPageColor = useCallback((position: string) => {
@@ -67,7 +69,7 @@ const Main = () => {
         </div>
         <div className={styles.pages}>
           {
-            pages.map(page => (
+            pages.map((page: PageInterface) => (
               <div
                 role="button"
                 tabIndex={0}

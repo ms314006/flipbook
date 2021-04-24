@@ -1,4 +1,10 @@
-class Colors {
+export interface PaletteInterface {
+  colors: string[];
+}
+
+class Palette {
+  colors: string[];
+
   constructor() {
     this.colors = [
       'transparent', '#ffffff',
@@ -16,4 +22,4 @@ class Colors {
   }
 }
 
-export default Colors;
+export default Palette;

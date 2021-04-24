@@ -1,13 +1,13 @@
 import React from 'react';
-import Flipbook from '../../class/Flipbook.ts';
-import Page from '../../class/Page.ts';
+import { FlipbookInterface } from '../../class/Flipbook.ts';
+import { PageInterface } from '../../class/Page.ts';
 import styles from './index.scss';
 
 type ControlButtonsProps = {
-    flipbook: Flipbook;
-    workingPage: Flipbook;
-    setWorkingPage: (page: Page) => void;
-    setPages: (pages: Page[]) => void
+    flipbook: FlipbookInterface;
+    workingPage: PageInterface;
+    setWorkingPage: (page: PageInterface) => void;
+    setPages: (pages: PageInterface[]) => void
 }
 
 export default React.memo((props: ControlButtonsProps) => {

@@ -18,6 +18,7 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/typescript', '@babel/preset-env'],
+            plugins: ['@babel/proposal-class-properties'],
           },
         },
       },

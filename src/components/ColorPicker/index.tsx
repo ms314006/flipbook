@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Palette from '../../class/Palette.ts';
+import Palette, { PaletteInterface } from '../../class/Palette.ts';
 import styles from './index.scss';
 
 type ColorPickerProps = {
@@ -7,7 +7,7 @@ type ColorPickerProps = {
     setCurrentColor: (color: string) => void
 }
 
-const palette = new Palette();
+const palette: PaletteInterface = new Palette();
 
 export default React.memo((props: ColorPickerProps) => {
   const { currentColor, setCurrentColor } = props;
